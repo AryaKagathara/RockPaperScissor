@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPS</title>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            width: 100%; 
+            background-image: url(images/back.jpg);
+        }
+        #mainlogo {
+            display: block;
+            position: fixed;
+            left: 38%;
+            top: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .devlogo {
+            display: block;
+            position: fixed;
+            font-size: 20px;
+            top: 10px;
+            left: 20px;
+            text-align: center;
+        }
+
+        .score {
+            position: relative;
+            text-align: center;
+        }
+        .score .score-label {
+            display: inline-block;
+            margin: 10px 100px;
+        }
+        .score #player-score,#computer-score {
+            font-size: 50px;
+        }
+        .images {
+            position: relative;
+            text-align: center;
+            margin: 20px;
+        }
+        .images .imgs {
+            display: inline-block;
+            margin: 10px 50px; 
+            cursor: pointer;
+        }
+        .images img {
+            transition: 0.5s;
+        }
+        .images img:hover {
+            width: 225px;
+        }
+        .result {
+            display: block;
+            font-size: 40px;
+            text-align: center;
+            margin: 10px;
+        }
+        .myfont {
+            font-family: 'Pacifico', cursive;
+        }
+        .help {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .set {
+            position: fixed;
+            top: 5px;
+            left: 5px;
+            font-size: 20px;
+        }
+        .set #total {
+            font-size: 35px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #mainlogo {
+                display: block;
+                position: fixed;
+                left: 15%;
+                top: 150px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .score {
+                position: relative;
+                text-align: center;
+            }
+            .score .score-label {
+                display: inline-block;
+                margin: 50px 20px;
+            }
+            .score #player-score,#computer-score {
+                font-size: 50px;
+            }
+            .images {
+                position: relative;
+                text-align: center;
+            }
+            .images .imgs {
+                display: inline-block;
+                margin: 10px 10px; 
+            }
+            .images img {
+                width: 140px;
+                transition: 0.5s;
+            }
+            .images img:hover {
+                width: 140px;
+            }
+            .result {
+                display: block;
+                font-size: 40px;
+                text-align: center;
+                margin: 10px;
+            }
+            .help {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                cursor: pointer;
+                text-align: center;
+            }
+            .set {
+                position: relative;
+                bottom: 10px;
+                left: 35%;
+                font-size: 20px;
+            }
+            .set #total {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <img src="images/logo.png" id="mainlogo" width="300px">
+        <br>
+        <div class="devlogo">Developed By:<br>
+            <img src="images/hw.png" width="100px">
+        </div>
+    </div>
+    <div class="container">
+        <div class="help">
+            <img src="images/info.png" width="50px" data-toggle="modal" data-target="#myModal">
+        </div>
+        <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h4 class="modal-title">Info / Setting</h4>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="text-center"><img src="images/logo.png" width="200px"></div>
+                        <div class="form-group">
+                            <label for="usr">Player Name:</label>
+                                <input type="text" class="form-control" id="usr" value="Player">
+                            <label for="usr">Game Limit:</label>
+                                <input type="number" min="5" max="20" class="form-control" id="limit" value="5">    
+                                <br>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="changeName()">OK</button>
+                        </div>
+                        <div>
+                            <h5>Hints</h5>
+                            <h6 class="text-danger">Click On The Image Of Your Choice</h6>
+                            <ul>
+                                <li>Rock Beats Scissor</li>
+                                <li>Paper Beats Rock</li>
+                                <li>Scissor Beats Paper</li>
+                            </ul>
+                            <div>
+                                <h5>Developer</h5>
+                                    <p><strong>Arya Kagathara</strong></p>
+                                    <p>October 18th, 2019</p>
+                            </div>
+                            <div>
+                                <h5>Build for</h5>
+                                    <ul>
+                                        <li>Computer</li>
+                                        <li>Google Pixel 2 XL</li>
+                                    </ul>
+                                    
+                            </div>
+                            <div>
+                                <h5>Bugs & reports</h5>
+                                    <p><strong>Solve it by yourself, you moron.</strong></p>
+                            </div>
+                            <div>
+                                <h5>Legal Notice</h5>
+                                        <strong>Basically it is Open Source</strong>, do not take this notice seriously.                              
+                                        These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Webiste Name accessible at Website.com.
+
+                                        These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.
+
+                                        Minors or people below 18 years old are not allowed to use this Website.
+                                        <br><br>
+                                        <h5>Intellectual Property Rights</h5>
+                                        Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Website.
+
+                                        You are granted limited license only for purposes of viewing the material contained on this Website.
+                                        <br><br>
+                                        <h5>Restrictions</h5>
+                                        You are specifically restricted from all of the following:
+                                        <ul>
+                                            <li>publishing any Website material in any other media;</li>
+                                            <li>selling, sublicensing and/or otherwise commercializing any Website material;</li>
+                                            <li>publicly performing and/or showing any Website material;</li>
+                                            <li>using this Website in any way that is or may be damaging to this Website;</li>
+                                            <li>using this Website in any way that impacts user access to this Website;</li>
+                                            <li>using this Website contrary to applicable laws and regulations, or in any way may cause harm to the Website, or to any person or business entity;</li>
+                                            <li>engaging in any data mining, data harvesting, data extracting or any other similar activity in relation to this Website;</li>
+                                            <li>using this Website to engage in any advertising or marketing.</li>
+                                        </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <img src="images/hw.png" width="60px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+        <div class="score myfont">
+            <div class="score-label"><h1 id="player">Player</h1><hr><div id="player-score">0</div></div>
+            <div class="score-label"><h1>Computer</h1><hr><div id="computer-score">0</div></div>
+        </div>
+        <div class="result myfont">
+            <div id="resultboard">All The Best</div>
+        </div>
+        <div class="images myfont">
+            <div class="imgs"><img src="images/stone.png" width="200px" value="stone" id="stone" onclick="gameOn('stone')"><h3>Rock</h3></div>
+            <div class="imgs"><img src="images/paper.png" width="200px" value="paper" id="paper" onclick="gameOn('paper')"><h3>Paper</h3></div>
+            <div class="imgs"><img src="images/scissor.png" width="200px" value="scissor" id="scissor" onclick="gameOn('scissor')"><h3>Scissor</h3></div>
+        </div>
+        <div class="set myfont">
+            <div>Best Of: <span id="total">5</span></div>
+        </div>
+    </div>
+    
+    <script>
+
+        $(document).ready(function(){
+            $(".container").hide().css("display","none");
+            $("#mainlogo").click(function() {
+                $("#main").fadeOut(3000).css("display","none");
+                $(".container").fadeIn(3000).css("display","block");
+            });
+        });
+
+        var compscore, playerscore, resultboard, computer_score, player_score, myplayer, flag=0, total;
+        resultboard = document.getElementById("resultboard");
+        compscore = document.getElementById('computer-score').innerHTML;
+        playerscore = document.getElementById('player-score').innerHTML;
+        computer_score = document.getElementById("computer-score"); 
+        player_score = document.getElementById("player-score");
+        myplayer = document.getElementById("player");
+        total = document.getElementById("total");
+
+        function check(computerSelection,playerSelection) {    
+            if(playerSelection == "stone") {
+                if(computerSelection == "paper") {
+                    compscore++;
+                    computer_score.innerHTML = compscore;
+                    resultboard.innerHTML = "AI win round";
+                }
+                if(computerSelection == "scissor") {
+                    playerscore++;
+                    player_score.innerHTML = playerscore;
+                    resultboard.innerHTML =  myplayer.innerHTML+" win round";
+                }
+                if(computerSelection == "stone") {
+                    resultboard.innerHTML = "Draw";
+                }
+            } else if(playerSelection == "paper") {
+                if(computerSelection == "scissor") {
+                    compscore++;
+                    computer_score.innerHTML = compscore;
+                    resultboard.innerHTML = "AI win round";
+                }
+                if(computerSelection == "stone") {
+                    playerscore++;
+                    player_score.innerHTML = playerscore;
+                    resultboard.innerHTML =  myplayer.innerHTML+" win round";
+                }
+                if(computerSelection == "paper") {
+                    resultboard.innerHTML = "Draw";
+                }
+            } else {
+                if(playerSelection == "scissor") {
+                    if(computerSelection == "stone") {
+                        compscore++;
+                        computer_score.innerHTML = compscore;
+                        resultboard.innerHTML = "AI win round";
+                    }
+                    if(computerSelection == "paper") {
+                        playerscore++;
+                        player_score.innerHTML = playerscore;
+                        resultboard.innerHTML =  myplayer.innerHTML+" win round";
+                    }
+                    if(computerSelection == "scissor") {
+                        resultboard.innerHTML = "Draw";
+                    }
+                }
+            }
+            if(compscore == total.innerHTML) {
+                setInterval( $.alert({ title: 'AI is Winner!', content: 'Game Reset',}) ,1000);
+                resultboard.style.color = "green";
+                resultboard.innerHTML = "AI was Winner";
+                return flag = 1;
+            }
+            if(playerscore == total.innerHTML) {
+                setInterval( $.alert({ title: myplayer.innerHTML+' is Winner', content: 'Game Reset',}) ,1000);
+                resultboard.style.color = "green";
+                resultboard.innerHTML = myplayer.innerHTML+" was Winner";
+                return flag = 1;
+            }
+            return 1;
+        }
+
+        function gameOn(val) {
+            if(flag == 1) {
+                player_score.innerHTML = 0;
+                computer_score.innerHTML = 0;
+                resultboard.style.color = "black";
+                playerscore = 0;
+                compscore = 0
+                flag = 2;
+            }
+            if(flag == 2) {
+                resultboard.innerHTML = "All The Best";
+                flag = 0;
+                return 1;
+            }
+            choice = ['stone','paper','scissor'];
+            var random,computerSelection,playerSelection;
+            random = Math.floor(Math.random() * 3);
+            computerSelection = choice[random];
+            playerSelection = document.getElementById(val).id;
+            check(computerSelection,playerSelection);
+
+        }
+        
+        function changeName() {
+            var user = document.getElementById('usr').value;
+            myplayer.innerHTML = user;
+            var gamelimit = document.getElementById("limit").value;
+            total.innerHTML = gamelimit;
+        }
+
+    </script>
+</body>
+</html>
